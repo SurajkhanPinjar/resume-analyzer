@@ -1,0 +1,78 @@
+{
+  "jd": {
+    "role": "Senior Backend Engineer",
+    "requiredSkills": [
+      "Java",
+      "Spring Boot",
+      "Kafka",
+      "Docker",
+      "SQL",
+      "Microservices"
+    ],
+    "niceToHave": [
+      "AWS",
+      "Kubernetes",
+      "System Design"
+    ],
+    "experienceRange": "4–6 years",
+    "domain": "FinTech"
+  },
+  "resumes": [
+    {
+      "candidateId": "CAND-001",
+      "name": "Rahul Sharma",
+      "totalExperience": 5,
+      "skills": ["Java", "Spring Boot", "Kafka", "SQL"],
+      "experience": [
+        "Backend Engineer at FinTech startup",
+        "Worked on payment microservices"
+      ],
+      "education": "B.Tech Computer Science",
+      "projects": ["Payment Gateway", "Ledger Service"]
+    },
+    {
+      "candidateId": "CAND-002",
+      "name": "Ankit Verma",
+      "totalExperience": 3,
+      "skills": ["Java", "Spring", "Docker", "SQL"],
+      "experience": [
+        "Software Engineer at SaaS company"
+      ],
+      "education": "MCA",
+      "projects": ["CRM Backend"]
+    },
+    {
+      "candidateId": "CAND-003",
+      "name": "Sneha Iyer",
+      "totalExperience": 6,
+      "skills": [
+        "Java",
+        "Spring Boot",
+        "Kafka",
+        "Docker",
+        "AWS",
+        "Microservices"
+      ],
+      "experience": [
+        "Senior Backend Engineer at Bank",
+        "Designed scalable transaction systems"
+      ],
+      "education": "B.E Computer Engineering",
+      "projects": [
+        "Core Banking Platform",
+        "Event-driven Loan Processing"
+      ]
+    },
+    {
+      "candidateId": "CAND-004",
+      "name": "Mohit Patel",
+      "totalExperience": 4,
+      "skills": ["Java", "Spring Boot", "SQL"],
+      "experience": [
+        "Backend Developer at E-commerce firm"
+      ],
+      "education": "B.Tech IT",
+      "projects": ["Order Management System"]
+    }
+  ]
+}
