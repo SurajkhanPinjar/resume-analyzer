@@ -1,0 +1,25 @@
+server:
+  port: 8089
+
+spring:
+  application:
+    name: some-analyser
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG
+
+app:
+  file:
+    upload-dir: uploads/
