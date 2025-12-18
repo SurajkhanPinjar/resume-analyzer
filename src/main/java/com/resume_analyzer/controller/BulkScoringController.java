@@ -31,7 +31,6 @@ public class BulkScoringController {
         BulkScoreResponse response = new BulkScoreResponse();
         response.setResults(
                 bulkScoringService.scoreAll(resumes, jd));
-
         return response;
     }
 }
