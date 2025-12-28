@@ -76,3 +76,22 @@
     }
   ]
 }
+
+
+
+
+--Min Req Confidence---
+{
+  "minConfidence": 0.0,
+  "jd": {
+    "role": "Backend Engineer",
+    "requiredSkills": ["Java"]
+  },
+  "resumes": [
+    { "candidateId": "E1", "name": "Valid One", "skills": ["Java"], "totalExperience": 3 },
+    { "candidateId": "E2", "name": "Missing Skills" },
+    { "candidateId": "E3", "name": "Overqualified", "skills": ["Java", "Spring Boot", "Kafka"], "totalExperience": 10 },
+    { "candidateId": "E4", "name": "Fresher", "skills": ["Java"], "totalExperience": 0 },
+    { "candidateId": "E5", "name": "Broken Resume" }
+  ]
+}

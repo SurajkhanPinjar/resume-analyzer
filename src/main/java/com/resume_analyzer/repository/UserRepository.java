@@ -1,4 +1,4 @@
-package com.resume_analyzer.dao;
+package com.resume_analyzer.repository;
 
 import com.resume_analyzer.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;

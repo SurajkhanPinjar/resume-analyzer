@@ -5,10 +5,7 @@ import com.resume_analyzer.service.BulkScoringService;
 import com.resume_analyzer.service.ExcelExportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -31,8 +28,14 @@ public class ExportController {
         List<Map<String, Object>> resumes =
                 (List<Map<String, Object>>) request.get("resumes");
 
+        Double minConfidence =
+                request.get("minConfidence") != null
+                        ? Double.valueOf(request.get("minConfidence").toString())
+                        : 0.0;
+
         List<CandidateScore> ranked =
-                bulkScoringService.scoreAll(resumes, jd);
+                bulkScoringService.scoreAllAsync(
+                        resumes, jd, minConfidence);
 
         byte[] excel = excelExportService.export(ranked);
 

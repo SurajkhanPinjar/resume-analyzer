@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Resume Ranker AI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+    <a class="navbar-brand fw-bold" th:href="@{/}">
+        Resume Ranker AI
+    </a>
+
+    <!-- TOGGLER -->
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNavbar">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+
+            <!-- USAGE INFO (STATIC FOR NOW) -->
+            <li class="nav-item me-3 text-light small">
+                <span>
+                    Plan: <strong>Starter</strong> |
+                    Resumes: <strong>40/100</strong> |
+                    ZIP: <strong>3/10</strong>
+                </span>
+            </li>
+
+            <!-- UPGRADE CTA -->
+            <li class="nav-item me-2">
+                <a class="btn btn-sm btn-outline-warning" href="#">
+                    Upgrade
+                </a>
+            </li>
+
+            <!-- LINKS -->
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/upload}">Upload</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/usage}">Usage</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- HERO -->
+<div class="container mt-5 text-center">
+    <h1 class="fw-bold display-6">
+        Shortlist Resumes in Minutes 🚀
+    </h1>
+
+    <p class="text-muted fs-5 mt-3">
+        Upload resumes + Job Description → Get ranked Excel instantly
+    </p>
+
+    <!-- CTA -->
+    <a th:href="@{/upload}" class="btn btn-primary btn-lg mt-3">
+        Try It Now
+    </a>
+
+    <!-- PRICING -->
+    <div class="row mt-5">
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-bold">Starter</h5>
+                    <h3 class="text-primary">₹999</h3>
+                    <p class="text-muted">
+                        100 Resumes<br>
+                        10 ZIP uploads
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow border-primary">
+                <div class="card-body">
+                    <h5 class="fw-bold">Advanced</h5>
+                    <h3 class="text-primary">₹1999</h3>
+                    <p class="text-muted">
+                        250 Resumes<br>
+                        25 ZIP uploads
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-bold">Unlimited</h5>
+                    <h3 class="text-primary">₹5999</h3>
+                    <p class="text-muted">
+                        Unlimited resumes<br>
+                        Unlimited ZIPs
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- BOOTSTRAP JS -->
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+</script>
+
+</body>
+</html>

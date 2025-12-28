@@ -4,7 +4,6 @@ import com.resume_analyzer.dto.BulkScoreResponse;
 import com.resume_analyzer.service.BulkScoringService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +19,8 @@ public class BulkScoringController {
 
     @PostMapping("/bulk")
     public BulkScoreResponse bulkScore(
-            @RequestBody Map<String, Object> request) {
+            @org.springframework.web.bind.annotation.RequestBody
+            Map<String, Object> request) {
 
         Map<String, Object> jd =
                 (Map<String, Object>) request.get("jd");
@@ -28,9 +28,21 @@ public class BulkScoringController {
         List<Map<String, Object>> resumes =
                 (List<Map<String, Object>>) request.get("resumes");
 
+        // ✅ Read minConfidence (optional)
+        Double minConfidence =
+                request.get("minConfidence") != null
+                        ? Double.valueOf(request.get("minConfidence").toString())
+                        : 0.0;
+
         BulkScoreResponse response = new BulkScoreResponse();
         response.setResults(
-                bulkScoringService.scoreAll(resumes, jd));
+                bulkScoringService.scoreAllAsync(
+                        resumes,
+                        jd,
+                        minConfidence
+                )
+        );
+
         return response;
     }
 }

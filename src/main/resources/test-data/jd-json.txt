@@ -1,0 +1,22 @@
+{
+  "role": "Senior Backend Engineer",
+  "experienceRange": "4-7 years",
+  "requiredSkills": [
+    "Java",
+    "Spring Boot",
+    "Microservices",
+    "Kafka",
+    "SQL"
+  ],
+  "goodToHaveSkills": [
+    "Docker",
+    "Kubernetes",
+    "AWS"
+  ],
+  "responsibilities": [
+    "Design and build scalable backend services",
+    "Work with event-driven architectures",
+    "Optimize database queries",
+    "Collaborate with frontend and DevOps teams"
+  ]
+}

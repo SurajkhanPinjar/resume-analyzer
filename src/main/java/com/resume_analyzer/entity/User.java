@@ -1,4 +1,4 @@
-package com.resume_analyzer.dto;
+package com.resume_analyzer.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -24,4 +24,10 @@ public class User {
     private String email;
 
     private LocalDateTime createdAt;
+
+    @Enumerated(EnumType.STRING)
+    private SubscriptionPlan plan;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Usage usage;
 }

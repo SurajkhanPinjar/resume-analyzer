@@ -19,4 +19,5 @@ public class CandidateScore {
     private List<String> gaps;
 
     private String recommendation;
+    private double minConfidence;
 }
