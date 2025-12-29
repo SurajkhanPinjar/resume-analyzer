@@ -1,6 +1,7 @@
 package com.resume_analyzer.entity;
 
 import com.resume_analyzer.entity.SubscriptionPlan;
+import com.resume_analyzer.entity.Usage;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,14 +25,15 @@ public class User {
     @Column(nullable = false)
     private String passwordHash;
 
-    @Column(unique = true)
-    private String apiKey;
-
     @Enumerated(EnumType.STRING)
     private SubscriptionPlan plan;
 
+    @Column(unique = true)
+    private String apiKey;
+
     private LocalDateTime createdAt;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usage_id")
     private Usage usage;
 }

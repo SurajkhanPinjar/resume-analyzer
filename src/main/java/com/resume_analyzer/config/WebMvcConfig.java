@@ -1,7 +1,5 @@
 package com.resume_analyzer.config;
 
-import com.resume_analyzer.config.ApiKeyInterceptor;
-import com.resume_analyzer.config.SessionInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -17,15 +15,16 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
-        // 🔐 API security (API Key)
+        // 🔐 API KEY interceptor (ONLY APIs)
         registry.addInterceptor(apiKeyInterceptor)
                 .addPathPatterns("/api/**")
                 .excludePathPatterns(
                         "/swagger-ui/**",
-                        "/v3/api-docs/**"
+                        "/v3/api-docs/**",
+                        "/h2-console/**"   // ✅ ADD
                 );
 
-        // 🖥 UI session security (ONLY UI PAGES)
+        // 🖥 SESSION interceptor (ONLY UI pages)
         registry.addInterceptor(sessionInterceptor)
                 .addPathPatterns(
                         "/upload",
@@ -36,6 +35,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                         "/login",
                         "/signup",
                         "/logout",
+                        "/h2-console/**",  // ✅ ADD
                         "/swagger-ui/**",
                         "/v3/api-docs/**"
                 );

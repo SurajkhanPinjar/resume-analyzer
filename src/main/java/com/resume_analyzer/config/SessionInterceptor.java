@@ -17,7 +17,17 @@ public class SessionInterceptor implements HandlerInterceptor {
 
         String path = request.getRequestURI();
 
-        if (path.startsWith("/login") || path.startsWith("/signup")) {
+        // ✅ ALLOW PUBLIC PATHS
+        if (path.startsWith("/login")
+                || path.startsWith("/signup")
+                || path.startsWith("/logout")
+                || path.startsWith("/h2-console")
+                || path.startsWith("/swagger-ui")
+                || path.startsWith("/v3/api-docs")
+                || path.startsWith("/css")
+                || path.startsWith("/js")
+                || path.startsWith("/images")) {
+
             return true;
         }
 
@@ -26,6 +36,7 @@ public class SessionInterceptor implements HandlerInterceptor {
             response.sendRedirect("/login");
             return false;
         }
+
         return true;
     }
 }

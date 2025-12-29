@@ -1,11 +1,11 @@
 package com.resume_analyzer.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.resume_analyzer.dto.CandidateScore;
 import com.resume_analyzer.utils.InMemoryMultipartFile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import tools.jackson.databind.ObjectMapper;
 
 import java.nio.file.Paths;
 import java.util.*;

@@ -1,8 +1,8 @@
 package com.resume_analyzer.controller;
 
+import com.resume_analyzer.entity.SubscriptionPlan;
 import com.resume_analyzer.entity.Usage;
 import com.resume_analyzer.entity.User;
-import com.resume_analyzer.entity.SubscriptionPlan;
 import com.resume_analyzer.repository.UserRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -22,32 +22,6 @@ public class AuthController {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    /* ---------------- LOGIN ---------------- */
-
-    @GetMapping("/login")
-    public String loginPage() {
-        return "login";
-    }
-
-    @PostMapping("/login")
-    public String login(
-            @RequestParam String email,
-            @RequestParam String password,
-            HttpSession session) {
-
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Invalid credentials"));
-
-        if (!passwordEncoder.matches(password, user.getPasswordHash())) {
-            throw new RuntimeException("Invalid credentials");
-        }
-
-        session.setAttribute("user", user);
-        return "redirect:/upload";
-    }
-
-    /* ---------------- SIGNUP ---------------- */
-
     @GetMapping("/signup")
     public String signupPage() {
         return "signup";
@@ -57,10 +31,11 @@ public class AuthController {
     public String signup(
             @RequestParam String email,
             @RequestParam String password,
-            HttpSession session) {
+            HttpSession session
+    ) {
 
         if (userRepository.existsByEmail(email)) {
-            return "redirect:/signup?error=email_exists";
+            return "redirect:/signup?error";
         }
 
         User user = new User();
@@ -71,19 +46,41 @@ public class AuthController {
         user.setCreatedAt(LocalDateTime.now());
 
         Usage usage = new Usage();
-        usage.setUser(user);
-
+        usage.setResumeUsed(0);
+        usage.setZipUsed(0);
         user.setUsage(usage);
 
-        userRepository.save(user); // Cascade saves usage
-
         userRepository.save(user);
+
+        // ✅ Auto-login
         session.setAttribute("user", user);
 
         return "redirect:/upload";
     }
 
-    /* ---------------- LOGOUT ---------------- */
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String login(
+            @RequestParam String email,
+            @RequestParam String password,
+            HttpSession session
+    ) {
+
+        User user = userRepository.findByEmail(email)
+                .orElse(null);
+
+        if (user == null ||
+                !passwordEncoder.matches(password, user.getPasswordHash())) {
+            return "redirect:/login?error";
+        }
+
+        session.setAttribute("user", user);
+        return "redirect:/upload";
+    }
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {

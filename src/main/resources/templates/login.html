@@ -20,8 +20,7 @@
 </nav>
 
 <!-- LOGIN CARD -->
-<div class="container d-flex justify-content-center align-items-center"
-     style="min-height: calc(100vh - 56px);">
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
 
     <div class="card shadow-lg border-0" style="width: 420px;">
         <div class="card-body p-4">
@@ -31,8 +30,8 @@
                 Login to continue using Resume Ranker AI
             </p>
 
-            <!-- ERROR MESSAGE -->
-            <div th:if="${error}" class="alert alert-danger text-center">
+            <!-- ✅ ERROR MESSAGE -->
+            <div th:if="${param.error}" class="alert alert-danger text-center">
                 Invalid email or password
             </div>
 
