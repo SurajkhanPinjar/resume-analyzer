@@ -5,21 +5,60 @@ spring:
   application:
     name: some-analyser
 
+  # ==========================
+  # FILE UPLOAD
+  # ==========================
   servlet:
     multipart:
       enabled: true
       max-file-size: 20MB
       max-request-size: 20MB
 
+  # ==========================
+  # DATASOURCE (H2 - FREE)
+  # ==========================
+  datasource:
+    url: jdbc:h2:file:./data/resume_db   # 🔥 FIX: persist data (not in-memory)
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+
+  # ==========================
+  # JPA / HIBERNATE
+  # ==========================
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+
+  # ==========================
+  # H2 CONSOLE
+  # ==========================
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  # ==========================
+  # MVC (Swagger compatibility)
+  # ==========================
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
 
+# ==========================
+# LOGGING
+# ==========================
 logging:
   level:
     root: INFO
     org.springframework.web: DEBUG
 
+# ==========================
+# APP CONFIG
+# ==========================
 app:
   file:
-    upload-dir: uploads/
+    upload-dir: uploads   # 🔥 FIX: no trailing slash

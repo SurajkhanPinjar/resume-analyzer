@@ -17,9 +17,9 @@ public class Usage {
     private UUID id;
 
     @OneToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    private int resumeUsed;
-    private int zipUsed;
+    private int resumeUsed = 0;
+    private int zipUsed = 0;
 }

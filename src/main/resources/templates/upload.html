@@ -11,52 +11,8 @@
 
 <body class="bg-light">
 
-<!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-    <a class="navbar-brand fw-bold" th:href="@{/}">
-        Resume Ranker AI
-    </a>
-
-    <!-- TOGGLER -->
-    <button class="navbar-toggler" type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#mainNavbar">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="mainNavbar">
-        <ul class="navbar-nav ms-auto align-items-lg-center">
-
-            <!-- USAGE INFO (STATIC FOR NOW) -->
-            <li class="nav-item me-3 text-light small">
-                <span>
-                    Plan: <strong>Starter</strong> |
-                    Resumes: <strong>40/100</strong> |
-                    ZIP: <strong>3/10</strong>
-                </span>
-            </li>
-
-            <!-- UPGRADE CTA -->
-            <li class="nav-item me-2">
-                <a class="btn btn-sm btn-outline-warning" href="#">
-                    Upgrade
-                </a>
-            </li>
-
-            <!-- LINKS -->
-            <li class="nav-item">
-                <a class="nav-link active" th:href="@{/upload}">
-                    Upload
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/usage}">
-                    Usage
-                </a>
-            </li>
-        </ul>
-    </div>
-</nav>
+<!-- COMMON NAVBAR -->
+<div th:replace="fragments/navbar :: body"></div>
 
 <!-- CONTENT -->
 <div class="container mt-5">
