@@ -1,0 +1,11 @@
+2025-12-29 12:57:41.039669+05:30 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM [*]USER"; expected "identifier"; SQL statement:
+SELECT * FROM USER [42001-224]
+2025-12-29 12:57:46.520681+05:30 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "--SHOW TABLES;\000d\000a\000d\000aSELECT * FROM [*]USER"; expected "identifier"; SQL statement:
+--SHOW TABLES;
+
+SELECT * FROM USER [42001-224]
+2025-12-29 12:57:48.988582+05:30 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM [*]USER"; expected "identifier"; SQL statement:
+SELECT * FROM USER [42001-224]
