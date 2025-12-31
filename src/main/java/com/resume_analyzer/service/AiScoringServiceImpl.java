@@ -21,7 +21,7 @@ public class AiScoringServiceImpl implements AiScoringService {
     @Override
     public AiScoreResponse score(
             Map<String, Object> resumeJson,
-            Map<String, Object> jdJson) {
+            String jdJson) {
 
         String prompt = buildPrompt(resumeJson, jdJson);
         String aiRawResponse = ollamaClient.callModel(prompt);
@@ -41,7 +41,7 @@ public class AiScoringServiceImpl implements AiScoringService {
 
     private String buildPrompt(
             Map<String, Object> resume,
-            Map<String, Object> jd) {
+            String jd) {
 
         String basePrompt =
                 PromptLoader.load("resume_jd_scoring_prompt.txt");

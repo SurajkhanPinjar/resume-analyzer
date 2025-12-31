@@ -1,6 +1,5 @@
 package com.resume_analyzer.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.resume_analyzer.dto.CandidateScore;
 import com.resume_analyzer.utils.InMemoryMultipartFile;
 import lombok.RequiredArgsConstructor;
@@ -19,44 +18,46 @@ public class ResumeZipProcessingService {
     private final ResumeParseService resumeParserService;
     private final BulkScoringService bulkScoringService;
     private final ExcelExportService excelExportService;
-    private final ObjectMapper objectMapper;
 
     public byte[] processZip(
             MultipartFile zipFile,
-            String jdJson,
+            String jdText,
             Double minConfidence) {
 
-        Map<String, Object> jd = parseJd(jdJson);
+        if (jdText == null || jdText.isBlank()) {
+            throw new IllegalArgumentException("Job Description is required");
+        }
 
+        // 1️⃣ Extract PDFs from ZIP
         List<MultipartFile> extractedPdfs = unzip(zipFile);
 
+        if (extractedPdfs.isEmpty()) {
+            throw new IllegalArgumentException("No valid PDF resumes found in ZIP");
+        }
+
+        // 2️⃣ Parse resumes
         List<Map<String, Object>> resumes =
                 resumeParserService.parse(
                         extractedPdfs.toArray(new MultipartFile[0])
                 );
 
-        List<CandidateScore> ranked =
-                bulkScoringService
-                        .scoreAllAsync(resumes, jd, minConfidence)
-                        .stream()
-                        .filter(c ->
-                                minConfidence == null ||
-                                        c.getConfidence() >= minConfidence
-                        )
-                        .toList();
+        // 3️⃣ Score resumes using JD TEXT
+        double threshold = minConfidence != null ? minConfidence : 0.0;
 
+        List<CandidateScore> ranked =
+                bulkScoringService.scoreAllAsync(
+                        resumes,
+                        jdText,
+                        threshold
+                );
+
+        // 4️⃣ Export Excel
         return excelExportService.export(ranked);
     }
 
-    private Map<String, Object> parseJd(String jdJson) {
-        try {
-            return objectMapper.readValue(jdJson, Map.class);
-        } catch (Exception e) {
-            throw new RuntimeException("Invalid JD JSON", e);
-        }
-    }
-
+    /* ===================== ZIP UNZIP ===================== */
     private List<MultipartFile> unzip(MultipartFile zipFile) {
+
         List<MultipartFile> files = new ArrayList<>();
         Set<String> processedNames = new HashSet<>();
 
@@ -69,7 +70,7 @@ public class ResumeZipProcessingService {
 
                 String entryName = entry.getName();
 
-                // ✅ FILTER JUNK
+                // 🚫 FILTER JUNK
                 if (entry.isDirectory()) continue;
                 if (!entryName.toLowerCase().endsWith(".pdf")) continue;
                 if (entryName.startsWith("__MACOSX")) continue;
@@ -87,7 +88,7 @@ public class ResumeZipProcessingService {
 
                 MultipartFile pdf =
                         new InMemoryMultipartFile(
-                                "file",
+                                "files",
                                 fileName,
                                 "application/pdf",
                                 content

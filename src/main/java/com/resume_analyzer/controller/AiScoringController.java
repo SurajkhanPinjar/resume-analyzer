@@ -25,23 +25,31 @@ public class AiScoringController {
     public AiScoreResponse scoreResumeAgainstJD(
             @RequestBody Map<String, Object> requestBody) {
 
-        // Expecting:
+        // Expected payload:
         // {
         //   "resume": { ... },
-        //   "jd": { ... }
+        //   "jd": "plain text job description"
         // }
 
-        Map<String, Object> resume =
-                (Map<String, Object>) requestBody.get("resume");
+        Object resumeObj = requestBody.get("resume");
+        Object jdObj = requestBody.get("jd");
 
-        Map<String, Object> jd =
-                (Map<String, Object>) requestBody.get("jd");
-
-        if (resume == null || jd == null) {
+        if (!(resumeObj instanceof Map)) {
             throw new IllegalArgumentException(
-                    "Both 'resume' and 'jd' must be provided");
+                    "'resume' must be a JSON object");
         }
 
-        return aiScoringService.score(resume, jd);
+        if (!(jdObj instanceof String) || ((String) jdObj).isBlank()) {
+            throw new IllegalArgumentException(
+                    "'jd' must be a non-empty text string");
+        }
+
+        @SuppressWarnings("unchecked")
+        Map<String, Object> resume =
+                (Map<String, Object>) resumeObj;
+
+        String jdText = (String) jdObj;
+
+        return aiScoringService.score(resume, jdText);
     }
 }

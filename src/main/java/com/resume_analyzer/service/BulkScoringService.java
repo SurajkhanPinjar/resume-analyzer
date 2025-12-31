@@ -2,7 +2,6 @@ package com.resume_analyzer.service;
 
 import com.resume_analyzer.dto.AiScoreResponse;
 import com.resume_analyzer.dto.CandidateScore;
-import com.resume_analyzer.service.AsyncAiScoringService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,28 +17,35 @@ public class BulkScoringService {
 
     public List<CandidateScore> scoreAllAsync(
             List<Map<String, Object>> resumes,
-            Map<String, Object> jd,
+            String jdText,
             Double minConfidence) {
 
         double threshold = minConfidence != null ? minConfidence : 0.0;
 
         List<CompletableFuture<CandidateScore>> futures =
                 resumes.stream()
-                        .map(resume -> asyncAiScoringService
-                                .scoreAsync(resume, jd)
-                                .thenApply(ai -> mapToCandidate(resume, ai))
-                                .exceptionally(ex -> fallbackCandidate(resume))
+                        .map(resume ->
+                                asyncAiScoringService
+                                        .scoreAsync(resume, jdText)
+                                        .thenApply(ai ->
+                                                mapToCandidate(resume, ai))
+                                        .exceptionally(ex ->
+                                                fallbackCandidate(resume))
                         )
                         .toList();
 
         return futures.stream()
                 .map(CompletableFuture::join)
-                .filter(cs -> cs.getConfidence() != null
-                        && cs.getConfidence() >= threshold)
+                .filter(cs ->
+                        cs.getConfidence() != null &&
+                                cs.getConfidence() >= threshold)
                 .sorted((a, b) ->
-                        b.getOverallScore().compareTo(a.getOverallScore()))
+                        b.getOverallScore()
+                                .compareTo(a.getOverallScore()))
                 .toList();
     }
+
+    // ================= MAPPERS =================
 
     private CandidateScore mapToCandidate(
             Map<String, Object> resume,

@@ -16,35 +16,42 @@ public class ResumeProcessingService {
     private final ResumeParseService resumeParserService;
     private final BulkScoringService bulkScoringService;
     private final ExcelExportService excelExportService;
-    private final ObjectMapper objectMapper; // ✅ Correct Jackson mapper
+    private final ObjectMapper objectMapper;
 
     public byte[] process(
             MultipartFile[] files,
-            String jdJson,
+            String jdRaw,
             Double minConfidence) {
 
         try {
-            // ✅ Parse JD JSON safely
-            Map<String, Object> jd =
-                    objectMapper.readValue(jdJson, Map.class);
+            // ✅ 1. Resolve JD (JSON or TXT)
+            String jdText;
+            Map<String, Object> jdMap = null;
 
-            // ✅ Parse resumes
+            if (isJson(jdRaw)) {
+                jdMap = objectMapper.readValue(jdRaw, Map.class);
+                jdText = objectMapper.writeValueAsString(jdMap);
+            } else {
+                jdText = jdRaw;
+            }
+
+            // ✅ 2. Parse resumes
             List<Map<String, Object>> resumes =
                     resumeParserService.parse(files);
 
-            // ✅ Default confidence
+            // ✅ 3. Default confidence
             double confidenceThreshold =
                     minConfidence != null ? minConfidence : 0.0;
 
-            // ✅ Score + filter inside service
+            // ✅ 4. Score resumes
             List<CandidateScore> ranked =
                     bulkScoringService.scoreAllAsync(
                             resumes,
-                            jd,
+                            jdText,   // 🔥 PASS TEXT ALWAYS
                             confidenceThreshold
                     );
 
-            // ✅ Export Excel
+            // ✅ 5. Export Excel
             return excelExportService.export(ranked);
 
         } catch (Exception e) {
@@ -52,5 +59,12 @@ public class ResumeProcessingService {
                     "Resume processing failed: " + e.getMessage(), e
             );
         }
+    }
+
+    // ================= HELPER =================
+    private boolean isJson(String input) {
+        if (input == null) return false;
+        input = input.trim();
+        return input.startsWith("{") && input.endsWith("}");
     }
 }

@@ -17,7 +17,7 @@ public class AsyncAiScoringService {
     @Async
     public CompletableFuture<AiScoreResponse> scoreAsync(
             Map<String, Object> resume,
-            Map<String, Object> jd) {
+            String jd) {
 
         try {
             return CompletableFuture.completedFuture(

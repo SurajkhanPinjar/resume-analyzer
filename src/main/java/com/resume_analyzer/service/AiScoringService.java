@@ -6,5 +6,5 @@ import java.util.Map;
 
 public interface AiScoringService {
     AiScoreResponse score(Map<String, Object> resumeJson,
-                          Map<String, Object> jdJson);
+                          String jdJson);
 }

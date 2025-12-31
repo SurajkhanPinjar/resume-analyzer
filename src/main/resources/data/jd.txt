@@ -1,0 +1,45 @@
+Job Title: Senior Backend Engineer
+
+Experience Required:
+4 to 7 years of professional backend development experience
+
+Role Overview:
+We are looking for a highly skilled Backend Engineer to design, build, and maintain scalable server-side applications. The ideal candidate should have strong expertise in Java-based backend systems and experience building high-performance APIs.
+
+Key Responsibilities:
+- Design and develop scalable backend services using Java and Spring Boot
+- Build and maintain RESTful APIs following best practices
+- Work with relational databases to design schemas and optimize queries
+- Implement asynchronous and event-driven systems using Kafka or similar tools
+- Ensure high availability, performance, and security of backend systems
+- Collaborate with frontend developers, product managers, and QA teams
+- Write clean, maintainable, and well-tested code
+- Participate in code reviews and system design discussions
+
+Required Skills:
+- Java (Core Java, Java 8+)
+- Spring Boot and Spring Framework
+- REST API design and development
+- SQL and relational databases (PostgreSQL, MySQL, or similar)
+- Kafka or other messaging systems
+- Object-Oriented Programming and SOLID principles
+- Basic knowledge of Microservices architecture
+
+Good to Have:
+- Experience with Docker and containerization
+- Knowledge of cloud platforms (AWS, GCP, or Azure)
+- Experience with CI/CD pipelines
+- Familiarity with NoSQL databases
+- Understanding of system design and scalability concepts
+
+Soft Skills:
+- Strong problem-solving abilities
+- Good communication skills
+- Ability to work independently and in a team
+- Ownership mindset and attention to detail
+
+Location:
+Remote / Hybrid
+
+Employment Type:
+Full-time
